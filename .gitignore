@@ -1,0 +1,19 @@
+# Environnement et secrets
+.venv/
+.env
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Journaux
+*.log
+
+# Données générées
+data/cache/*.tmp
+data/results/
+# Dossiers de trials KerasTuner (normalement sous data/results/, exclus partout par sécurité)
+kerastuner_aco/
+**/kerastuner_aco/
+untitled_project/

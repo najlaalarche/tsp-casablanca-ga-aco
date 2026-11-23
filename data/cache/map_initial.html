@@ -1,0 +1,2531 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_a21ff46723f8a01d09b108115d5ef64c {
+                    position: relative;
+                    width: 100.0vw;
+                    height: 100.0vh;
+
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>/*
+ * Glyphicons Halflings -- the icon font used by folium's default Awesome Markers
+ * (Icon(prefix="glyphicon")). Extracted from Bootstrap 3's glyphicon rules only.
+ *
+ * folium previously loaded netdna's bootstrap-glyphicons.css, which despite its
+ * name ships a full Bootstrap-3 base stylesheet (normalize reset + global `body`
+ * rules) that leaked onto the host page (GH-1820). This file provides just the
+ * @font-face and .glyphicon/.glyphicon-* rules needed for the markers, with no
+ * page-wide side effects. Font files are served from jsDelivr.
+ */
+@font-face{font-family:'Glyphicons Halflings';src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot');src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.woff') format('woff'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.ttf') format('truetype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:normal;line-height:1;-webkit-font-smoothing:antialiased;}
+.glyphicon-asterisk:before{content:"\2a";}
+.glyphicon-plus:before{content:"\2b";}
+.glyphicon-euro:before{content:"\20ac";}
+.glyphicon-minus:before{content:"\2212";}
+.glyphicon-cloud:before{content:"\2601";}
+.glyphicon-envelope:before{content:"\2709";}
+.glyphicon-pencil:before{content:"\270f";}
+.glyphicon-glass:before{content:"\e001";}
+.glyphicon-music:before{content:"\e002";}
+.glyphicon-search:before{content:"\e003";}
+.glyphicon-heart:before{content:"\e005";}
+.glyphicon-star:before{content:"\e006";}
+.glyphicon-star-empty:before{content:"\e007";}
+.glyphicon-user:before{content:"\e008";}
+.glyphicon-film:before{content:"\e009";}
+.glyphicon-th-large:before{content:"\e010";}
+.glyphicon-th:before{content:"\e011";}
+.glyphicon-th-list:before{content:"\e012";}
+.glyphicon-ok:before{content:"\e013";}
+.glyphicon-remove:before{content:"\e014";}
+.glyphicon-zoom-in:before{content:"\e015";}
+.glyphicon-zoom-out:before{content:"\e016";}
+.glyphicon-off:before{content:"\e017";}
+.glyphicon-signal:before{content:"\e018";}
+.glyphicon-cog:before{content:"\e019";}
+.glyphicon-trash:before{content:"\e020";}
+.glyphicon-home:before{content:"\e021";}
+.glyphicon-file:before{content:"\e022";}
+.glyphicon-time:before{content:"\e023";}
+.glyphicon-road:before{content:"\e024";}
+.glyphicon-download-alt:before{content:"\e025";}
+.glyphicon-download:before{content:"\e026";}
+.glyphicon-upload:before{content:"\e027";}
+.glyphicon-inbox:before{content:"\e028";}
+.glyphicon-play-circle:before{content:"\e029";}
+.glyphicon-repeat:before{content:"\e030";}
+.glyphicon-refresh:before{content:"\e031";}
+.glyphicon-list-alt:before{content:"\e032";}
+.glyphicon-flag:before{content:"\e034";}
+.glyphicon-headphones:before{content:"\e035";}
+.glyphicon-volume-off:before{content:"\e036";}
+.glyphicon-volume-down:before{content:"\e037";}
+.glyphicon-volume-up:before{content:"\e038";}
+.glyphicon-qrcode:before{content:"\e039";}
+.glyphicon-barcode:before{content:"\e040";}
+.glyphicon-tag:before{content:"\e041";}
+.glyphicon-tags:before{content:"\e042";}
+.glyphicon-book:before{content:"\e043";}
+.glyphicon-print:before{content:"\e045";}
+.glyphicon-font:before{content:"\e047";}
+.glyphicon-bold:before{content:"\e048";}
+.glyphicon-italic:before{content:"\e049";}
+.glyphicon-text-height:before{content:"\e050";}
+.glyphicon-text-width:before{content:"\e051";}
+.glyphicon-align-left:before{content:"\e052";}
+.glyphicon-align-center:before{content:"\e053";}
+.glyphicon-align-right:before{content:"\e054";}
+.glyphicon-align-justify:before{content:"\e055";}
+.glyphicon-list:before{content:"\e056";}
+.glyphicon-indent-left:before{content:"\e057";}
+.glyphicon-indent-right:before{content:"\e058";}
+.glyphicon-facetime-video:before{content:"\e059";}
+.glyphicon-picture:before{content:"\e060";}
+.glyphicon-map-marker:before{content:"\e062";}
+.glyphicon-adjust:before{content:"\e063";}
+.glyphicon-tint:before{content:"\e064";}
+.glyphicon-edit:before{content:"\e065";}
+.glyphicon-share:before{content:"\e066";}
+.glyphicon-check:before{content:"\e067";}
+.glyphicon-move:before{content:"\e068";}
+.glyphicon-step-backward:before{content:"\e069";}
+.glyphicon-fast-backward:before{content:"\e070";}
+.glyphicon-backward:before{content:"\e071";}
+.glyphicon-play:before{content:"\e072";}
+.glyphicon-pause:before{content:"\e073";}
+.glyphicon-stop:before{content:"\e074";}
+.glyphicon-forward:before{content:"\e075";}
+.glyphicon-fast-forward:before{content:"\e076";}
+.glyphicon-step-forward:before{content:"\e077";}
+.glyphicon-eject:before{content:"\e078";}
+.glyphicon-chevron-left:before{content:"\e079";}
+.glyphicon-chevron-right:before{content:"\e080";}
+.glyphicon-plus-sign:before{content:"\e081";}
+.glyphicon-minus-sign:before{content:"\e082";}
+.glyphicon-remove-sign:before{content:"\e083";}
+.glyphicon-ok-sign:before{content:"\e084";}
+.glyphicon-question-sign:before{content:"\e085";}
+.glyphicon-info-sign:before{content:"\e086";}
+.glyphicon-screenshot:before{content:"\e087";}
+.glyphicon-remove-circle:before{content:"\e088";}
+.glyphicon-ok-circle:before{content:"\e089";}
+.glyphicon-ban-circle:before{content:"\e090";}
+.glyphicon-arrow-left:before{content:"\e091";}
+.glyphicon-arrow-right:before{content:"\e092";}
+.glyphicon-arrow-up:before{content:"\e093";}
+.glyphicon-arrow-down:before{content:"\e094";}
+.glyphicon-share-alt:before{content:"\e095";}
+.glyphicon-resize-full:before{content:"\e096";}
+.glyphicon-resize-small:before{content:"\e097";}
+.glyphicon-exclamation-sign:before{content:"\e101";}
+.glyphicon-gift:before{content:"\e102";}
+.glyphicon-leaf:before{content:"\e103";}
+.glyphicon-eye-open:before{content:"\e105";}
+.glyphicon-eye-close:before{content:"\e106";}
+.glyphicon-warning-sign:before{content:"\e107";}
+.glyphicon-plane:before{content:"\e108";}
+.glyphicon-random:before{content:"\e110";}
+.glyphicon-comment:before{content:"\e111";}
+.glyphicon-magnet:before{content:"\e112";}
+.glyphicon-chevron-up:before{content:"\e113";}
+.glyphicon-chevron-down:before{content:"\e114";}
+.glyphicon-retweet:before{content:"\e115";}
+.glyphicon-shopping-cart:before{content:"\e116";}
+.glyphicon-folder-close:before{content:"\e117";}
+.glyphicon-folder-open:before{content:"\e118";}
+.glyphicon-resize-vertical:before{content:"\e119";}
+.glyphicon-resize-horizontal:before{content:"\e120";}
+.glyphicon-hdd:before{content:"\e121";}
+.glyphicon-bullhorn:before{content:"\e122";}
+.glyphicon-certificate:before{content:"\e124";}
+.glyphicon-thumbs-up:before{content:"\e125";}
+.glyphicon-thumbs-down:before{content:"\e126";}
+.glyphicon-hand-right:before{content:"\e127";}
+.glyphicon-hand-left:before{content:"\e128";}
+.glyphicon-hand-up:before{content:"\e129";}
+.glyphicon-hand-down:before{content:"\e130";}
+.glyphicon-circle-arrow-right:before{content:"\e131";}
+.glyphicon-circle-arrow-left:before{content:"\e132";}
+.glyphicon-circle-arrow-up:before{content:"\e133";}
+.glyphicon-circle-arrow-down:before{content:"\e134";}
+.glyphicon-globe:before{content:"\e135";}
+.glyphicon-tasks:before{content:"\e137";}
+.glyphicon-filter:before{content:"\e138";}
+.glyphicon-fullscreen:before{content:"\e140";}
+.glyphicon-dashboard:before{content:"\e141";}
+.glyphicon-heart-empty:before{content:"\e143";}
+.glyphicon-link:before{content:"\e144";}
+.glyphicon-phone:before{content:"\e145";}
+.glyphicon-usd:before{content:"\e148";}
+.glyphicon-gbp:before{content:"\e149";}
+.glyphicon-sort:before{content:"\e150";}
+.glyphicon-sort-by-alphabet:before{content:"\e151";}
+.glyphicon-sort-by-alphabet-alt:before{content:"\e152";}
+.glyphicon-sort-by-order:before{content:"\e153";}
+.glyphicon-sort-by-order-alt:before{content:"\e154";}
+.glyphicon-sort-by-attributes:before{content:"\e155";}
+.glyphicon-sort-by-attributes-alt:before{content:"\e156";}
+.glyphicon-unchecked:before{content:"\e157";}
+.glyphicon-expand:before{content:"\e158";}
+.glyphicon-collapse-down:before{content:"\e159";}
+.glyphicon-collapse-up:before{content:"\e160";}
+.glyphicon-log-in:before{content:"\e161";}
+.glyphicon-flash:before{content:"\e162";}
+.glyphicon-log-out:before{content:"\e163";}
+.glyphicon-new-window:before{content:"\e164";}
+.glyphicon-record:before{content:"\e165";}
+.glyphicon-save:before{content:"\e166";}
+.glyphicon-open:before{content:"\e167";}
+.glyphicon-saved:before{content:"\e168";}
+.glyphicon-import:before{content:"\e169";}
+.glyphicon-export:before{content:"\e170";}
+.glyphicon-send:before{content:"\e171";}
+.glyphicon-floppy-disk:before{content:"\e172";}
+.glyphicon-floppy-saved:before{content:"\e173";}
+.glyphicon-floppy-remove:before{content:"\e174";}
+.glyphicon-floppy-save:before{content:"\e175";}
+.glyphicon-floppy-open:before{content:"\e176";}
+.glyphicon-credit-card:before{content:"\e177";}
+.glyphicon-transfer:before{content:"\e178";}
+.glyphicon-cutlery:before{content:"\e179";}
+.glyphicon-header:before{content:"\e180";}
+.glyphicon-compressed:before{content:"\e181";}
+.glyphicon-earphone:before{content:"\e182";}
+.glyphicon-phone-alt:before{content:"\e183";}
+.glyphicon-tower:before{content:"\e184";}
+.glyphicon-stats:before{content:"\e185";}
+.glyphicon-sd-video:before{content:"\e186";}
+.glyphicon-hd-video:before{content:"\e187";}
+.glyphicon-subtitles:before{content:"\e188";}
+.glyphicon-sound-stereo:before{content:"\e189";}
+.glyphicon-sound-dolby:before{content:"\e190";}
+.glyphicon-sound-5-1:before{content:"\e191";}
+.glyphicon-sound-6-1:before{content:"\e192";}
+.glyphicon-sound-7-1:before{content:"\e193";}
+.glyphicon-copyright-mark:before{content:"\e194";}
+.glyphicon-registration-mark:before{content:"\e195";}
+.glyphicon-cloud-download:before{content:"\e197";}
+.glyphicon-cloud-upload:before{content:"\e198";}
+.glyphicon-tree-conifer:before{content:"\e199";}
+.glyphicon-tree-deciduous:before{content:"\e200";}
+.glyphicon-briefcase:before{content:"\1f4bc";}
+.glyphicon-calendar:before{content:"\1f4c5";}
+.glyphicon-pushpin:before{content:"\1f4cc";}
+.glyphicon-paperclip:before{content:"\1f4ce";}
+.glyphicon-camera:before{content:"\1f4f7";}
+.glyphicon-lock:before{content:"\1f512";}
+.glyphicon-bell:before{content:"\1f514";}
+.glyphicon-bookmark:before{content:"\1f516";}
+.glyphicon-fire:before{content:"\1f525";}
+.glyphicon-wrench:before{content:"\1f527";}
+</style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_a21ff46723f8a01d09b108115d5ef64c" ></div>
+        
+</body>
+<script>
+    
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      var map = map_a21ff46723f8a01d09b108115d5ef64c, touched = false, b = [[33.4323812, -7.6760886], [33.5547245, -7.5788975]], el = map.getContainer();
+      ['mousedown', 'wheel', 'touchstart', 'keydown'].forEach(function(ev) {
+        el.addEventListener(ev, function() { touched = true; }, {passive: true});
+      });
+      function refit() {
+        map.invalidateSize();
+        // animate:false : une animation lancée pendant que la fenêtre est hors écran
+        // (requestAnimationFrame suspendu) resterait bloquée.
+        if (!touched) map.fitBounds(b, {padding: [18, 18], animate: false});
+      }
+      window.__tspRefit = refit;  // appelé aussi par l'hôte Tkinter après chaque redimensionnement
+      new ResizeObserver(refit).observe(el);
+      setTimeout(refit, 50);
+    });
+    
+    
+            var map_a21ff46723f8a01d09b108115d5ef64c = L.map(
+                "map_a21ff46723f8a01d09b108115d5ef64c",
+                {
+                    center: [33.513194264999996, -7.63290456],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+  "zoomSnap": 0.25,
+  "zoomDelta": 0.5,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+
+            
+
+        
+    
+            var tile_layer_14c89809cbf4693c13dbdd21771e5049 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_14c89809cbf4693c13dbdd21771e5049.addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            map_a21ff46723f8a01d09b108115d5ef64c.fitBounds(
+                [[33.4323812, -7.6760886], [33.5547245, -7.5788975]],
+                {}
+            );
+        
+    
+            var marker_ca3715618ebf2563aa9da67198fac7ed = L.marker(
+                [33.5547245, -7.6315443],
+                {
+  "zIndexOffset": 1000,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_1f3e683653efd15d8d8327c8861ca79c = L.divIcon({
+  "html": "\u003cdiv style=\"width:28px;height:28px;border-radius:50%;background:#ff5c8a;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003eD\u003c/div\u003e",
+  "iconSize": [28, 28],
+  "iconAnchor": [14, 14],
+  "className": "empty",
+});
+        
+    
+        var popup_0a0c777070dbafe5d055067608b0229e = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_9671755890e7aa506f89745bb0f8f45b = $(`<div id="html_9671755890e7aa506f89745bb0f8f45b" style="width: 100.0%; height: 100.0%;"><b>#0 — Gare Casa Oasis</b><br>Zone : Aïn Chock<br>Lat : 33.5547245<br>Lon : -7.6315443</div>`)[0];
+                popup_0a0c777070dbafe5d055067608b0229e.setContent(html_9671755890e7aa506f89745bb0f8f45b);
+            
+        
+
+        marker_ca3715618ebf2563aa9da67198fac7ed.bindPopup(popup_0a0c777070dbafe5d055067608b0229e)
+        ;
+
+        
+    
+    
+            marker_ca3715618ebf2563aa9da67198fac7ed.bindTooltip(
+                `<div>
+                     #0 Gare Casa Oasis (départ)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_ca3715618ebf2563aa9da67198fac7ed.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_ca3715618ebf2563aa9da67198fac7ed.setIcon(div_icon_1f3e683653efd15d8d8327c8861ca79c);
+            
+    
+            var marker_687f4a3dbbda791ba4613297859e8172 = L.marker(
+                [33.5411379, -7.649913],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_f522a2846e3f29974a14b3be73452f4c = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e1\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_5c692ef71854839a07c87b7abd008424 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_3ee92472d84c0e500637810e5c80eff6 = $(`<div id="html_3ee92472d84c0e500637810e5c80eff6" style="width: 100.0%; height: 100.0%;"><b>#1 — Gare des Facultés</b><br>Zone : Aïn Chock<br>Lat : 33.5411379<br>Lon : -7.6499130</div>`)[0];
+                popup_5c692ef71854839a07c87b7abd008424.setContent(html_3ee92472d84c0e500637810e5c80eff6);
+            
+        
+
+        marker_687f4a3dbbda791ba4613297859e8172.bindPopup(popup_5c692ef71854839a07c87b7abd008424)
+        ;
+
+        
+    
+    
+            marker_687f4a3dbbda791ba4613297859e8172.bindTooltip(
+                `<div>
+                     #1 Gare des Facultés
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_687f4a3dbbda791ba4613297859e8172.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_687f4a3dbbda791ba4613297859e8172.setIcon(div_icon_f522a2846e3f29974a14b3be73452f4c);
+            
+    
+            var marker_f55f1528ce64f0cf5b5ef5b0b4a9fa6f = L.marker(
+                [33.5454234, -7.6565064],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_f00df21c05c196732bd3e2a764962474 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e2\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_45a9cb062652010c2288c767114bfd64 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_83064f3a267b235aa045f8038563d8df = $(`<div id="html_83064f3a267b235aa045f8038563d8df" style="width: 100.0%; height: 100.0%;"><b>#2 — Faculté des sciences Aïn Chock</b><br>Zone : Aïn Chock<br>Lat : 33.5454234<br>Lon : -7.6565064</div>`)[0];
+                popup_45a9cb062652010c2288c767114bfd64.setContent(html_83064f3a267b235aa045f8038563d8df);
+            
+        
+
+        marker_f55f1528ce64f0cf5b5ef5b0b4a9fa6f.bindPopup(popup_45a9cb062652010c2288c767114bfd64)
+        ;
+
+        
+    
+    
+            marker_f55f1528ce64f0cf5b5ef5b0b4a9fa6f.bindTooltip(
+                `<div>
+                     #2 Faculté des sciences Aïn Chock
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_f55f1528ce64f0cf5b5ef5b0b4a9fa6f.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_f55f1528ce64f0cf5b5ef5b0b4a9fa6f.setIcon(div_icon_f00df21c05c196732bd3e2a764962474);
+            
+    
+            var marker_fac0ededd7735c6b7816ff468b74e11a = L.marker(
+                [33.5446144, -7.6547542],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_6538df1330f81f9b60ed4e2b89f7159e = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e3\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_7ce625861757bca7c9b1dcf8cdc225c0 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_ed3c13e8afee007c7fb2f45154b87aa5 = $(`<div id="html_ed3c13e8afee007c7fb2f45154b87aa5" style="width: 100.0%; height: 100.0%;"><b>#3 — FSJES Aïn Chock</b><br>Zone : Aïn Chock<br>Lat : 33.5446144<br>Lon : -7.6547542</div>`)[0];
+                popup_7ce625861757bca7c9b1dcf8cdc225c0.setContent(html_ed3c13e8afee007c7fb2f45154b87aa5);
+            
+        
+
+        marker_fac0ededd7735c6b7816ff468b74e11a.bindPopup(popup_7ce625861757bca7c9b1dcf8cdc225c0)
+        ;
+
+        
+    
+    
+            marker_fac0ededd7735c6b7816ff468b74e11a.bindTooltip(
+                `<div>
+                     #3 FSJES Aïn Chock
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_fac0ededd7735c6b7816ff468b74e11a.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_fac0ededd7735c6b7816ff468b74e11a.setIcon(div_icon_6538df1330f81f9b60ed4e2b89f7159e);
+            
+    
+            var marker_a0b4f35a9ead5f04c7b8fa3adc140e12 = L.marker(
+                [33.5446815, -7.6407748],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_48f1714704d81cedad4ee075b832efbe = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e4\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_5190fc3ec84ad5dda68131406830427d = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_f962d7d110f8b1612eba57da5d2d3324 = $(`<div id="html_f962d7d110f8b1612eba57da5d2d3324" style="width: 100.0%; height: 100.0%;"><b>#4 — Marjane Californie</b><br>Zone : Aïn Chock<br>Lat : 33.5446815<br>Lon : -7.6407748</div>`)[0];
+                popup_5190fc3ec84ad5dda68131406830427d.setContent(html_f962d7d110f8b1612eba57da5d2d3324);
+            
+        
+
+        marker_a0b4f35a9ead5f04c7b8fa3adc140e12.bindPopup(popup_5190fc3ec84ad5dda68131406830427d)
+        ;
+
+        
+    
+    
+            marker_a0b4f35a9ead5f04c7b8fa3adc140e12.bindTooltip(
+                `<div>
+                     #4 Marjane Californie
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_a0b4f35a9ead5f04c7b8fa3adc140e12.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_a0b4f35a9ead5f04c7b8fa3adc140e12.setIcon(div_icon_48f1714704d81cedad4ee075b832efbe);
+            
+    
+            var marker_b23013f5916aee9d7237b2278b4198f9 = L.marker(
+                [33.5383062, -7.6274008],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_cf044d212b75f67263168f1b86dfe529 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e5\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_d6c0a0f85080db22b034ed42f5e9993e = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_e8f0f1aedd01ebcb9257f29a7743578a = $(`<div id="html_e8f0f1aedd01ebcb9257f29a7743578a" style="width: 100.0%; height: 100.0%;"><b>#5 — Quartier Californie</b><br>Zone : Aïn Chock<br>Lat : 33.5383062<br>Lon : -7.6274008</div>`)[0];
+                popup_d6c0a0f85080db22b034ed42f5e9993e.setContent(html_e8f0f1aedd01ebcb9257f29a7743578a);
+            
+        
+
+        marker_b23013f5916aee9d7237b2278b4198f9.bindPopup(popup_d6c0a0f85080db22b034ed42f5e9993e)
+        ;
+
+        
+    
+    
+            marker_b23013f5916aee9d7237b2278b4198f9.bindTooltip(
+                `<div>
+                     #5 Quartier Californie
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_b23013f5916aee9d7237b2278b4198f9.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_b23013f5916aee9d7237b2278b4198f9.setIcon(div_icon_cf044d212b75f67263168f1b86dfe529);
+            
+    
+            var marker_82cfa0fbde8c9e04b8a869efd5a1b442 = L.marker(
+                [33.5420282, -7.6340452],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_b425be36ad3b664790ce34aa88cbccdc = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e6\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_0c26ad37156b813525dcbeb8136fbfb7 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_0a8163d8615a6235167c34b67eeae0de = $(`<div id="html_0a8163d8615a6235167c34b67eeae0de" style="width: 100.0%; height: 100.0%;"><b>#6 — Mosquée Assabil</b><br>Zone : Aïn Chock<br>Lat : 33.5420282<br>Lon : -7.6340452</div>`)[0];
+                popup_0c26ad37156b813525dcbeb8136fbfb7.setContent(html_0a8163d8615a6235167c34b67eeae0de);
+            
+        
+
+        marker_82cfa0fbde8c9e04b8a869efd5a1b442.bindPopup(popup_0c26ad37156b813525dcbeb8136fbfb7)
+        ;
+
+        
+    
+    
+            marker_82cfa0fbde8c9e04b8a869efd5a1b442.bindTooltip(
+                `<div>
+                     #6 Mosquée Assabil
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_82cfa0fbde8c9e04b8a869efd5a1b442.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_82cfa0fbde8c9e04b8a869efd5a1b442.setIcon(div_icon_b425be36ad3b664790ce34aa88cbccdc);
+            
+    
+            var marker_ea110952122adaba60c33d499e906269 = L.marker(
+                [33.5546212, -7.6032892],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_682b8061c726f64d7204f72508bdba93 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e7\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_d720fbbe283503b637fefd5799ec5f9b = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_0f6b4f1003b3652f0d3ba1d5777adad3 = $(`<div id="html_0f6b4f1003b3652f0d3ba1d5777adad3" style="width: 100.0%; height: 100.0%;"><b>#7 — Polo</b><br>Zone : Aïn Chock<br>Lat : 33.5546212<br>Lon : -7.6032892</div>`)[0];
+                popup_d720fbbe283503b637fefd5799ec5f9b.setContent(html_0f6b4f1003b3652f0d3ba1d5777adad3);
+            
+        
+
+        marker_ea110952122adaba60c33d499e906269.bindPopup(popup_d720fbbe283503b637fefd5799ec5f9b)
+        ;
+
+        
+    
+    
+            marker_ea110952122adaba60c33d499e906269.bindTooltip(
+                `<div>
+                     #7 Polo
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_ea110952122adaba60c33d499e906269.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_ea110952122adaba60c33d499e906269.setIcon(div_icon_682b8061c726f64d7204f72508bdba93);
+            
+    
+            var marker_a660b7ef9e11a9581e9b1ee5eb8aca60 = L.marker(
+                [33.5360413, -7.599901],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_cec17705140c8a4fe5b508d6721bdd6e = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e8\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_229e746c32f5004a62353d5ea9b66b99 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_dff2eabf47b69b9803acf4254948e032 = $(`<div id="html_dff2eabf47b69b9803acf4254948e032" style="width: 100.0%; height: 100.0%;"><b>#8 — Hay Al Inara</b><br>Zone : Aïn Chock<br>Lat : 33.5360413<br>Lon : -7.5999010</div>`)[0];
+                popup_229e746c32f5004a62353d5ea9b66b99.setContent(html_dff2eabf47b69b9803acf4254948e032);
+            
+        
+
+        marker_a660b7ef9e11a9581e9b1ee5eb8aca60.bindPopup(popup_229e746c32f5004a62353d5ea9b66b99)
+        ;
+
+        
+    
+    
+            marker_a660b7ef9e11a9581e9b1ee5eb8aca60.bindTooltip(
+                `<div>
+                     #8 Hay Al Inara
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_a660b7ef9e11a9581e9b1ee5eb8aca60.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_a660b7ef9e11a9581e9b1ee5eb8aca60.setIcon(div_icon_cec17705140c8a4fe5b508d6721bdd6e);
+            
+    
+            var marker_cb2c76b34239ac8447a6139ecaeb798e = L.marker(
+                [33.5396986, -7.594067],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_019f09f2d233b9eea10a95a92692b45b = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e9\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_6cd4c1338d2cc20b8e619131294a8a9d = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_baa7693083064c691950bb7cf6ad1a66 = $(`<div id="html_baa7693083064c691950bb7cf6ad1a66" style="width: 100.0%; height: 100.0%;"><b>#9 — Aïn Chock</b><br>Zone : Aïn Chock<br>Lat : 33.5396986<br>Lon : -7.5940670</div>`)[0];
+                popup_6cd4c1338d2cc20b8e619131294a8a9d.setContent(html_baa7693083064c691950bb7cf6ad1a66);
+            
+        
+
+        marker_cb2c76b34239ac8447a6139ecaeb798e.bindPopup(popup_6cd4c1338d2cc20b8e619131294a8a9d)
+        ;
+
+        
+    
+    
+            marker_cb2c76b34239ac8447a6139ecaeb798e.bindTooltip(
+                `<div>
+                     #9 Aïn Chock
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_cb2c76b34239ac8447a6139ecaeb798e.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_cb2c76b34239ac8447a6139ecaeb798e.setIcon(div_icon_019f09f2d233b9eea10a95a92692b45b);
+            
+    
+            var marker_4137d1b33bcf8c3ba505fa329d53a03a = L.marker(
+                [33.5536891, -7.5967687],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_1a5462bba3278b10a9e2e4a9bea184a5 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e10\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_399bc8745a621af1f51b516fb53b2c70 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_c0c9da2b2adc7705f461105eb2c9c384 = $(`<div id="html_c0c9da2b2adc7705f461105eb2c9c384" style="width: 100.0%; height: 100.0%;"><b>#10 — Cité d'Aïn Chock</b><br>Zone : Aïn Chock<br>Lat : 33.5536891<br>Lon : -7.5967687</div>`)[0];
+                popup_399bc8745a621af1f51b516fb53b2c70.setContent(html_c0c9da2b2adc7705f461105eb2c9c384);
+            
+        
+
+        marker_4137d1b33bcf8c3ba505fa329d53a03a.bindPopup(popup_399bc8745a621af1f51b516fb53b2c70)
+        ;
+
+        
+    
+    
+            marker_4137d1b33bcf8c3ba505fa329d53a03a.bindTooltip(
+                `<div>
+                     #10 Cité d'Aïn Chock
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_4137d1b33bcf8c3ba505fa329d53a03a.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_4137d1b33bcf8c3ba505fa329d53a03a.setIcon(div_icon_1a5462bba3278b10a9e2e4a9bea184a5);
+            
+    
+            var marker_fb2144a44680eec14bf85f28de166def = L.marker(
+                [33.5461022, -7.5973376],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_30e6a1c80b496c5aa79572b5e73f6563 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e11\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_d54b84c5f8692300b73d02ec4aacd9c6 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_ad6605876526c1758a76c7bc17438b76 = $(`<div id="html_ad6605876526c1758a76c7bc17438b76" style="width: 100.0%; height: 100.0%;"><b>#11 — Hay Moulay Abdellah</b><br>Zone : Aïn Chock<br>Lat : 33.5461022<br>Lon : -7.5973376</div>`)[0];
+                popup_d54b84c5f8692300b73d02ec4aacd9c6.setContent(html_ad6605876526c1758a76c7bc17438b76);
+            
+        
+
+        marker_fb2144a44680eec14bf85f28de166def.bindPopup(popup_d54b84c5f8692300b73d02ec4aacd9c6)
+        ;
+
+        
+    
+    
+            marker_fb2144a44680eec14bf85f28de166def.bindTooltip(
+                `<div>
+                     #11 Hay Moulay Abdellah
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_fb2144a44680eec14bf85f28de166def.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_fb2144a44680eec14bf85f28de166def.setIcon(div_icon_30e6a1c80b496c5aa79572b5e73f6563);
+            
+    
+            var marker_f2ee23e295d1b05b0508de6364869f9b = L.marker(
+                [33.52676, -7.5801064],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_f620bd097ab845590adea30fbc4a5df6 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e12\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_2b89726591691f3435c88f39c96f311e = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_95e00bba6547abbd8318162df9e12042 = $(`<div id="html_95e00bba6547abbd8318162df9e12042" style="width: 100.0%; height: 100.0%;"><b>#12 — Lamkansa</b><br>Zone : Aïn Chock<br>Lat : 33.5267600<br>Lon : -7.5801064</div>`)[0];
+                popup_2b89726591691f3435c88f39c96f311e.setContent(html_95e00bba6547abbd8318162df9e12042);
+            
+        
+
+        marker_f2ee23e295d1b05b0508de6364869f9b.bindPopup(popup_2b89726591691f3435c88f39c96f311e)
+        ;
+
+        
+    
+    
+            marker_f2ee23e295d1b05b0508de6364869f9b.bindTooltip(
+                `<div>
+                     #12 Lamkansa
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_f2ee23e295d1b05b0508de6364869f9b.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_f2ee23e295d1b05b0508de6364869f9b.setIcon(div_icon_f620bd097ab845590adea30fbc4a5df6);
+            
+    
+            var marker_76f289b54bcb5f04d4f5de365aa923b8 = L.marker(
+                [33.5397751, -7.6433794],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_9438ca0b36407ef257613f06573fd84a = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e13\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_9bf18cb2bf4d5933884b3c97d647de17 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_36a2b30b11ff23416088c60fa052e6fd = $(`<div id="html_36a2b30b11ff23416088c60fa052e6fd" style="width: 100.0%; height: 100.0%;"><b>#13 — Hôtel Kenzi Sidi Maarouf</b><br>Zone : Sidi Maarouf<br>Lat : 33.5397751<br>Lon : -7.6433794</div>`)[0];
+                popup_9bf18cb2bf4d5933884b3c97d647de17.setContent(html_36a2b30b11ff23416088c60fa052e6fd);
+            
+        
+
+        marker_76f289b54bcb5f04d4f5de365aa923b8.bindPopup(popup_9bf18cb2bf4d5933884b3c97d647de17)
+        ;
+
+        
+    
+    
+            marker_76f289b54bcb5f04d4f5de365aa923b8.bindTooltip(
+                `<div>
+                     #13 Hôtel Kenzi Sidi Maarouf
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_76f289b54bcb5f04d4f5de365aa923b8.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_76f289b54bcb5f04d4f5de365aa923b8.setIcon(div_icon_9438ca0b36407ef257613f06573fd84a);
+            
+    
+            var marker_18dbe532217c2eadf7b7e636e34fbbf1 = L.marker(
+                [33.5372199, -7.6480575],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_77d7f0ef126f69cfb9dae18764e7dea1 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e14\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_2a223af7d2260ff1eff462739e020a74 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_ca77233a5cfb99ad40ae0a4dabce8473 = $(`<div id="html_ca77233a5cfb99ad40ae0a4dabce8473" style="width: 100.0%; height: 100.0%;"><b>#14 — Hôtel Casablanca Suites & Spa</b><br>Zone : Sidi Maarouf<br>Lat : 33.5372199<br>Lon : -7.6480575</div>`)[0];
+                popup_2a223af7d2260ff1eff462739e020a74.setContent(html_ca77233a5cfb99ad40ae0a4dabce8473);
+            
+        
+
+        marker_18dbe532217c2eadf7b7e636e34fbbf1.bindPopup(popup_2a223af7d2260ff1eff462739e020a74)
+        ;
+
+        
+    
+    
+            marker_18dbe532217c2eadf7b7e636e34fbbf1.bindTooltip(
+                `<div>
+                     #14 Hôtel Casablanca Suites & Spa
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_18dbe532217c2eadf7b7e636e34fbbf1.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_18dbe532217c2eadf7b7e636e34fbbf1.setIcon(div_icon_77d7f0ef126f69cfb9dae18764e7dea1);
+            
+    
+            var marker_b93694a4d18a853fb47d99f94636629d = L.marker(
+                [33.5322073, -7.6478039],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_3783d789590833cb285c2d4f3fec1e7b = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e15\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_9c498af8cab33853079685cbbb7b158c = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_ca223b0eb648b281a985ab94bc8412d8 = $(`<div id="html_ca223b0eb648b281a985ab94bc8412d8" style="width: 100.0%; height: 100.0%;"><b>#15 — Rond-point Al Moustakbal</b><br>Zone : Sidi Maarouf<br>Lat : 33.5322073<br>Lon : -7.6478039</div>`)[0];
+                popup_9c498af8cab33853079685cbbb7b158c.setContent(html_ca223b0eb648b281a985ab94bc8412d8);
+            
+        
+
+        marker_b93694a4d18a853fb47d99f94636629d.bindPopup(popup_9c498af8cab33853079685cbbb7b158c)
+        ;
+
+        
+    
+    
+            marker_b93694a4d18a853fb47d99f94636629d.bindTooltip(
+                `<div>
+                     #15 Rond-point Al Moustakbal
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_b93694a4d18a853fb47d99f94636629d.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_b93694a4d18a853fb47d99f94636629d.setIcon(div_icon_3783d789590833cb285c2d4f3fec1e7b);
+            
+    
+            var marker_1ede61a6f1f664615454888b9baad0e1 = L.marker(
+                [33.5303099, -7.6500417],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_4b4c33cc5659901779e009298f3796e3 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e16\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_a055981afb03484b96186a4f80254450 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_1b512a1a7022e37d1a0bae3a3f44079f = $(`<div id="html_1b512a1a7022e37d1a0bae3a3f44079f" style="width: 100.0%; height: 100.0%;"><b>#16 — Lotissement Hafid El Kheir</b><br>Zone : Sidi Maarouf<br>Lat : 33.5303099<br>Lon : -7.6500417</div>`)[0];
+                popup_a055981afb03484b96186a4f80254450.setContent(html_1b512a1a7022e37d1a0bae3a3f44079f);
+            
+        
+
+        marker_1ede61a6f1f664615454888b9baad0e1.bindPopup(popup_a055981afb03484b96186a4f80254450)
+        ;
+
+        
+    
+    
+            marker_1ede61a6f1f664615454888b9baad0e1.bindTooltip(
+                `<div>
+                     #16 Lotissement Hafid El Kheir
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_1ede61a6f1f664615454888b9baad0e1.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_1ede61a6f1f664615454888b9baad0e1.setIcon(div_icon_4b4c33cc5659901779e009298f3796e3);
+            
+    
+            var marker_f3c821b4c2424e48ddba8a431e20525c = L.marker(
+                [33.5303986, -7.6444658],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_219b80c56cce026136aae55f5c5db1ad = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e17\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_59acd94dd9c78b908afe0f0e861946d9 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_202816d1eb6082b6121712995f8434a7 = $(`<div id="html_202816d1eb6082b6121712995f8434a7" style="width: 100.0%; height: 100.0%;"><b>#17 — Perla la Colline</b><br>Zone : Sidi Maarouf<br>Lat : 33.5303986<br>Lon : -7.6444658</div>`)[0];
+                popup_59acd94dd9c78b908afe0f0e861946d9.setContent(html_202816d1eb6082b6121712995f8434a7);
+            
+        
+
+        marker_f3c821b4c2424e48ddba8a431e20525c.bindPopup(popup_59acd94dd9c78b908afe0f0e861946d9)
+        ;
+
+        
+    
+    
+            marker_f3c821b4c2424e48ddba8a431e20525c.bindTooltip(
+                `<div>
+                     #17 Perla la Colline
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_f3c821b4c2424e48ddba8a431e20525c.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_f3c821b4c2424e48ddba8a431e20525c.setIcon(div_icon_219b80c56cce026136aae55f5c5db1ad);
+            
+    
+            var marker_0b7bd852839e4ee07162256277d66cc3 = L.marker(
+                [33.5267176, -7.6436111],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_7922410e9edb69b391097f4c1deeaefc = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e18\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_c77895dc0c2bd145235f18422ed8bb95 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_19f0ed2bc244534a0535389588aa3ef2 = $(`<div id="html_19f0ed2bc244534a0535389588aa3ef2" style="width: 100.0%; height: 100.0%;"><b>#18 — Parc Casa Nearshore</b><br>Zone : Sidi Maarouf<br>Lat : 33.5267176<br>Lon : -7.6436111</div>`)[0];
+                popup_c77895dc0c2bd145235f18422ed8bb95.setContent(html_19f0ed2bc244534a0535389588aa3ef2);
+            
+        
+
+        marker_0b7bd852839e4ee07162256277d66cc3.bindPopup(popup_c77895dc0c2bd145235f18422ed8bb95)
+        ;
+
+        
+    
+    
+            marker_0b7bd852839e4ee07162256277d66cc3.bindTooltip(
+                `<div>
+                     #18 Parc Casa Nearshore
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_0b7bd852839e4ee07162256277d66cc3.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_0b7bd852839e4ee07162256277d66cc3.setIcon(div_icon_7922410e9edb69b391097f4c1deeaefc);
+            
+    
+            var marker_5ae3e3fcd6c01364fea5be25ef979476 = L.marker(
+                [33.5252842, -7.6400835],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_c5a1f5e59ee70a29a1544ff33f7149cc = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e19\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_bb73880e745c086efb2dfa48b104240a = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_f13343a820f262f55e9212d1cc62e9d0 = $(`<div id="html_f13343a820f262f55e9212d1cc62e9d0" style="width: 100.0%; height: 100.0%;"><b>#19 — Ibis Casablanca Nearshore</b><br>Zone : Sidi Maarouf<br>Lat : 33.5252842<br>Lon : -7.6400835</div>`)[0];
+                popup_bb73880e745c086efb2dfa48b104240a.setContent(html_f13343a820f262f55e9212d1cc62e9d0);
+            
+        
+
+        marker_5ae3e3fcd6c01364fea5be25ef979476.bindPopup(popup_bb73880e745c086efb2dfa48b104240a)
+        ;
+
+        
+    
+    
+            marker_5ae3e3fcd6c01364fea5be25ef979476.bindTooltip(
+                `<div>
+                     #19 Ibis Casablanca Nearshore
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_5ae3e3fcd6c01364fea5be25ef979476.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_5ae3e3fcd6c01364fea5be25ef979476.setIcon(div_icon_c5a1f5e59ee70a29a1544ff33f7149cc);
+            
+    
+            var marker_6bcb53525f1d77bf0ab270e27ca18dea = L.marker(
+                [33.5235508, -7.6312207],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_72356cc00014ed5aed904d6cc4346ab6 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e20\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_3fd666b61b0a300879592c9167909a7c = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_b15c1210c292d0267ab79e7bdfdf6dcd = $(`<div id="html_b15c1210c292d0267ab79e7bdfdf6dcd" style="width: 100.0%; height: 100.0%;"><b>#20 — Mosquée Al Hamd</b><br>Zone : Sidi Maarouf<br>Lat : 33.5235508<br>Lon : -7.6312207</div>`)[0];
+                popup_3fd666b61b0a300879592c9167909a7c.setContent(html_b15c1210c292d0267ab79e7bdfdf6dcd);
+            
+        
+
+        marker_6bcb53525f1d77bf0ab270e27ca18dea.bindPopup(popup_3fd666b61b0a300879592c9167909a7c)
+        ;
+
+        
+    
+    
+            marker_6bcb53525f1d77bf0ab270e27ca18dea.bindTooltip(
+                `<div>
+                     #20 Mosquée Al Hamd
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_6bcb53525f1d77bf0ab270e27ca18dea.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_6bcb53525f1d77bf0ab270e27ca18dea.setIcon(div_icon_72356cc00014ed5aed904d6cc4346ab6);
+            
+    
+            var marker_2076c9eaf0014952cd2d129c5b6488f4 = L.marker(
+                [33.524226, -7.6507651],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_2882399296b7987aceedce785230b0e1 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e21\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_78cc88aeb7526fe5a2820992a1922ddf = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_4c97f0bda49701ba48627725083ae07a = $(`<div id="html_4c97f0bda49701ba48627725083ae07a" style="width: 100.0%; height: 100.0%;"><b>#21 — Préfecture d'Arrondissement Aïn Chock</b><br>Zone : Sidi Maarouf<br>Lat : 33.5242260<br>Lon : -7.6507651</div>`)[0];
+                popup_78cc88aeb7526fe5a2820992a1922ddf.setContent(html_4c97f0bda49701ba48627725083ae07a);
+            
+        
+
+        marker_2076c9eaf0014952cd2d129c5b6488f4.bindPopup(popup_78cc88aeb7526fe5a2820992a1922ddf)
+        ;
+
+        
+    
+    
+            marker_2076c9eaf0014952cd2d129c5b6488f4.bindTooltip(
+                `<div>
+                     #21 Préfecture d'Arrondissement Aïn Chock
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_2076c9eaf0014952cd2d129c5b6488f4.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_2076c9eaf0014952cd2d129c5b6488f4.setIcon(div_icon_2882399296b7987aceedce785230b0e1);
+            
+    
+            var marker_b446638bdecbe7d8fda0ec07b7a913c9 = L.marker(
+                [33.5177017, -7.6472777],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_f50a0fba75a6ac23e9e57c2a539c82ee = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e22\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_510b3cae13b994cd25b08dc89709fffb = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_095162da4e5fce1eabf9389d112c3830 = $(`<div id="html_095162da4e5fce1eabf9389d112c3830" style="width: 100.0%; height: 100.0%;"><b>#22 — Ourroud</b><br>Zone : Sidi Maarouf<br>Lat : 33.5177017<br>Lon : -7.6472777</div>`)[0];
+                popup_510b3cae13b994cd25b08dc89709fffb.setContent(html_095162da4e5fce1eabf9389d112c3830);
+            
+        
+
+        marker_b446638bdecbe7d8fda0ec07b7a913c9.bindPopup(popup_510b3cae13b994cd25b08dc89709fffb)
+        ;
+
+        
+    
+    
+            marker_b446638bdecbe7d8fda0ec07b7a913c9.bindTooltip(
+                `<div>
+                     #22 Ourroud
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_b446638bdecbe7d8fda0ec07b7a913c9.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_b446638bdecbe7d8fda0ec07b7a913c9.setIcon(div_icon_f50a0fba75a6ac23e9e57c2a539c82ee);
+            
+    
+            var marker_dc6c507fbfbea996d1ccd30322f0d195 = L.marker(
+                [33.5154973, -7.6438764],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_bf0b7fbbcf66a4288f8d08a1e7faa44c = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e23\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_e76bd3f186a369248d96c02422d67369 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_b39ebc276c048c235ab8fbb57c65d18c = $(`<div id="html_b39ebc276c048c235ab8fbb57c65d18c" style="width: 100.0%; height: 100.0%;"><b>#23 — Mosquée Al Adarissa</b><br>Zone : Sidi Maarouf<br>Lat : 33.5154973<br>Lon : -7.6438764</div>`)[0];
+                popup_e76bd3f186a369248d96c02422d67369.setContent(html_b39ebc276c048c235ab8fbb57c65d18c);
+            
+        
+
+        marker_dc6c507fbfbea996d1ccd30322f0d195.bindPopup(popup_e76bd3f186a369248d96c02422d67369)
+        ;
+
+        
+    
+    
+            marker_dc6c507fbfbea996d1ccd30322f0d195.bindTooltip(
+                `<div>
+                     #23 Mosquée Al Adarissa
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_dc6c507fbfbea996d1ccd30322f0d195.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_dc6c507fbfbea996d1ccd30322f0d195.setIcon(div_icon_bf0b7fbbcf66a4288f8d08a1e7faa44c);
+            
+    
+            var marker_4353f300def9e6de2908a1efebc2e75b = L.marker(
+                [33.5146368, -7.6532215],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_e5220098b9be8069a4b9d1db42b27063 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e24\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_e9cebf108de0104cec135c1421a48485 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_346547260ad4d1482779191af1cdba78 = $(`<div id="html_346547260ad4d1482779191af1cdba78" style="width: 100.0%; height: 100.0%;"><b>#24 — Hay Najah</b><br>Zone : Sidi Maarouf<br>Lat : 33.5146368<br>Lon : -7.6532215</div>`)[0];
+                popup_e9cebf108de0104cec135c1421a48485.setContent(html_346547260ad4d1482779191af1cdba78);
+            
+        
+
+        marker_4353f300def9e6de2908a1efebc2e75b.bindPopup(popup_e9cebf108de0104cec135c1421a48485)
+        ;
+
+        
+    
+    
+            marker_4353f300def9e6de2908a1efebc2e75b.bindTooltip(
+                `<div>
+                     #24 Hay Najah
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_4353f300def9e6de2908a1efebc2e75b.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_4353f300def9e6de2908a1efebc2e75b.setIcon(div_icon_e5220098b9be8069a4b9d1db42b27063);
+            
+    
+            var marker_967c2ff9617d00c98295c7bc3dac1e4a = L.marker(
+                [33.5155495, -7.6582828],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_12a292153a2d59e886a07f4aa87904b2 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e25\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_60331089020b2c1ab1d549e90ac55864 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_477bb628bed7c6e22a425af8f2c49e24 = $(`<div id="html_477bb628bed7c6e22a425af8f2c49e24" style="width: 100.0%; height: 100.0%;"><b>#25 — Lot Lina</b><br>Zone : Sidi Maarouf<br>Lat : 33.5155495<br>Lon : -7.6582828</div>`)[0];
+                popup_60331089020b2c1ab1d549e90ac55864.setContent(html_477bb628bed7c6e22a425af8f2c49e24);
+            
+        
+
+        marker_967c2ff9617d00c98295c7bc3dac1e4a.bindPopup(popup_60331089020b2c1ab1d549e90ac55864)
+        ;
+
+        
+    
+    
+            marker_967c2ff9617d00c98295c7bc3dac1e4a.bindTooltip(
+                `<div>
+                     #25 Lot Lina
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_967c2ff9617d00c98295c7bc3dac1e4a.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_967c2ff9617d00c98295c7bc3dac1e4a.setIcon(div_icon_12a292153a2d59e886a07f4aa87904b2);
+            
+    
+            var marker_3d7edfb922bf8852210f40de6cfd2a21 = L.marker(
+                [33.5080302, -7.6312797],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_3f5602912c59d0ff94e8c888d05fbc9c = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e26\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_dbb34b79b9f450aee1e371923a3e5a2f = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_c3e13567ded3d5e23f65fd204c629769 = $(`<div id="html_c3e13567ded3d5e23f65fd204c629769" style="width: 100.0%; height: 100.0%;"><b>#26 — Hilton Garden Inn Casablanca Sud</b><br>Zone : Sidi Maarouf<br>Lat : 33.5080302<br>Lon : -7.6312797</div>`)[0];
+                popup_dbb34b79b9f450aee1e371923a3e5a2f.setContent(html_c3e13567ded3d5e23f65fd204c629769);
+            
+        
+
+        marker_3d7edfb922bf8852210f40de6cfd2a21.bindPopup(popup_dbb34b79b9f450aee1e371923a3e5a2f)
+        ;
+
+        
+    
+    
+            marker_3d7edfb922bf8852210f40de6cfd2a21.bindTooltip(
+                `<div>
+                     #26 Hilton Garden Inn Casablanca Sud
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_3d7edfb922bf8852210f40de6cfd2a21.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_3d7edfb922bf8852210f40de6cfd2a21.setIcon(div_icon_3f5602912c59d0ff94e8c888d05fbc9c);
+            
+    
+            var marker_bd159d2ac086489e513d664384e38440 = L.marker(
+                [33.5063341, -7.6510188],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_f0026072db775d3a60b06dcb64086088 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e27\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_25d0d30cd9d8610a6bcb64c929791a3f = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_382787a35fb675c0f3bb5030c6908209 = $(`<div id="html_382787a35fb675c0f3bb5030c6908209" style="width: 100.0%; height: 100.0%;"><b>#27 — Mosquée Othmane Ben Affane</b><br>Zone : Sidi Maarouf<br>Lat : 33.5063341<br>Lon : -7.6510188</div>`)[0];
+                popup_25d0d30cd9d8610a6bcb64c929791a3f.setContent(html_382787a35fb675c0f3bb5030c6908209);
+            
+        
+
+        marker_bd159d2ac086489e513d664384e38440.bindPopup(popup_25d0d30cd9d8610a6bcb64c929791a3f)
+        ;
+
+        
+    
+    
+            marker_bd159d2ac086489e513d664384e38440.bindTooltip(
+                `<div>
+                     #27 Mosquée Othmane Ben Affane
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_bd159d2ac086489e513d664384e38440.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_bd159d2ac086489e513d664384e38440.setIcon(div_icon_f0026072db775d3a60b06dcb64086088);
+            
+    
+            var marker_2b9d9007db561e43af0cc3b22148eb0f = L.marker(
+                [33.497166, -7.6072125],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_8fbc9fdc1ba2928a667a76172f2dc631 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e28\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_98e70e51405d8aabd7b37c23595fa226 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_0b7426467e46269c3d8a2db736d48afc = $(`<div id="html_0b7426467e46269c3d8a2db736d48afc" style="width: 100.0%; height: 100.0%;"><b>#28 — La Ville Verte Bouskoura</b><br>Zone : Bouskoura<br>Lat : 33.4971660<br>Lon : -7.6072125</div>`)[0];
+                popup_98e70e51405d8aabd7b37c23595fa226.setContent(html_0b7426467e46269c3d8a2db736d48afc);
+            
+        
+
+        marker_2b9d9007db561e43af0cc3b22148eb0f.bindPopup(popup_98e70e51405d8aabd7b37c23595fa226)
+        ;
+
+        
+    
+    
+            marker_2b9d9007db561e43af0cc3b22148eb0f.bindTooltip(
+                `<div>
+                     #28 La Ville Verte Bouskoura
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_2b9d9007db561e43af0cc3b22148eb0f.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_2b9d9007db561e43af0cc3b22148eb0f.setIcon(div_icon_8fbc9fdc1ba2928a667a76172f2dc631);
+            
+    
+            var marker_7999c165311f32c4dc75a03a5496c2ba = L.marker(
+                [33.4931751, -7.603415],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_8db353cce1c91d54e57d86f4dd439684 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e29\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_3d91c8123fcb0adbe11bf896ccd3ac27 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_47a3c0c6bc2347542de6492c5385ecd0 = $(`<div id="html_47a3c0c6bc2347542de6492c5385ecd0" style="width: 100.0%; height: 100.0%;"><b>#29 — Casa Green Town</b><br>Zone : Bouskoura<br>Lat : 33.4931751<br>Lon : -7.6034150</div>`)[0];
+                popup_3d91c8123fcb0adbe11bf896ccd3ac27.setContent(html_47a3c0c6bc2347542de6492c5385ecd0);
+            
+        
+
+        marker_7999c165311f32c4dc75a03a5496c2ba.bindPopup(popup_3d91c8123fcb0adbe11bf896ccd3ac27)
+        ;
+
+        
+    
+    
+            marker_7999c165311f32c4dc75a03a5496c2ba.bindTooltip(
+                `<div>
+                     #29 Casa Green Town
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_7999c165311f32c4dc75a03a5496c2ba.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_7999c165311f32c4dc75a03a5496c2ba.setIcon(div_icon_8db353cce1c91d54e57d86f4dd439684);
+            
+    
+            var marker_d370e0dfc1ebbc3724bf342f59f95a90 = L.marker(
+                [33.4874812, -7.6327659],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_14f8a4e5e93fb6d27b1ef08b9952daa5 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e30\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_76240499f92c22b9636e9de1a53b804d = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_2e23de13de24ec8574b5d571a1b20ad6 = $(`<div id="html_2e23de13de24ec8574b5d571a1b20ad6" style="width: 100.0%; height: 100.0%;"><b>#30 — Mosquée La Forêt</b><br>Zone : Bouskoura<br>Lat : 33.4874812<br>Lon : -7.6327659</div>`)[0];
+                popup_76240499f92c22b9636e9de1a53b804d.setContent(html_2e23de13de24ec8574b5d571a1b20ad6);
+            
+        
+
+        marker_d370e0dfc1ebbc3724bf342f59f95a90.bindPopup(popup_76240499f92c22b9636e9de1a53b804d)
+        ;
+
+        
+    
+    
+            marker_d370e0dfc1ebbc3724bf342f59f95a90.bindTooltip(
+                `<div>
+                     #30 Mosquée La Forêt
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_d370e0dfc1ebbc3724bf342f59f95a90.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_d370e0dfc1ebbc3724bf342f59f95a90.setIcon(div_icon_14f8a4e5e93fb6d27b1ef08b9952daa5);
+            
+    
+            var marker_8856adfe9acc046c5fd8bb7c8d24c6fa = L.marker(
+                [33.471468, -7.6064279],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_503f8a9a7d640e90891b90122a6b2815 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e31\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_5e8b3fdd2f0501796999b62477e446a0 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_0f16826b48b868660567c10fa28f14cd = $(`<div id="html_0f16826b48b868660567c10fa28f14cd" style="width: 100.0%; height: 100.0%;"><b>#31 — Bouskoura Golf City</b><br>Zone : Bouskoura<br>Lat : 33.4714680<br>Lon : -7.6064279</div>`)[0];
+                popup_5e8b3fdd2f0501796999b62477e446a0.setContent(html_0f16826b48b868660567c10fa28f14cd);
+            
+        
+
+        marker_8856adfe9acc046c5fd8bb7c8d24c6fa.bindPopup(popup_5e8b3fdd2f0501796999b62477e446a0)
+        ;
+
+        
+    
+    
+            marker_8856adfe9acc046c5fd8bb7c8d24c6fa.bindTooltip(
+                `<div>
+                     #31 Bouskoura Golf City
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_8856adfe9acc046c5fd8bb7c8d24c6fa.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_8856adfe9acc046c5fd8bb7c8d24c6fa.setIcon(div_icon_503f8a9a7d640e90891b90122a6b2815);
+            
+    
+            var marker_2a5bca03d6d4dc004402917bf75ef87c = L.marker(
+                [33.4650409, -7.6047224],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_dc997cc9d28967ea7f31a16876afb622 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e32\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_edd84dc130dddb34f642ac939071cf41 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_1321cda66e1706a5996d702d170960e3 = $(`<div id="html_1321cda66e1706a5996d702d170960e3" style="width: 100.0%; height: 100.0%;"><b>#32 — Bouskoura Golf Club</b><br>Zone : Bouskoura<br>Lat : 33.4650409<br>Lon : -7.6047224</div>`)[0];
+                popup_edd84dc130dddb34f642ac939071cf41.setContent(html_1321cda66e1706a5996d702d170960e3);
+            
+        
+
+        marker_2a5bca03d6d4dc004402917bf75ef87c.bindPopup(popup_edd84dc130dddb34f642ac939071cf41)
+        ;
+
+        
+    
+    
+            marker_2a5bca03d6d4dc004402917bf75ef87c.bindTooltip(
+                `<div>
+                     #32 Bouskoura Golf Club
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_2a5bca03d6d4dc004402917bf75ef87c.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_2a5bca03d6d4dc004402917bf75ef87c.setIcon(div_icon_dc997cc9d28967ea7f31a16876afb622);
+            
+    
+            var marker_3e7a5929c37dbbceb7d2735a7f08917b = L.marker(
+                [33.4642281, -7.5788975],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_e315e849cebcb956261edaaf88ac1f2c = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e33\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_d153f024599855383d05fb8bccef0179 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_5d7e112f1461226c50dd09d0e351c35a = $(`<div id="html_5d7e112f1461226c50dd09d0e351c35a" style="width: 100.0%; height: 100.0%;"><b>#33 — Forêt de Bouskoura</b><br>Zone : Bouskoura<br>Lat : 33.4642281<br>Lon : -7.5788975</div>`)[0];
+                popup_d153f024599855383d05fb8bccef0179.setContent(html_5d7e112f1461226c50dd09d0e351c35a);
+            
+        
+
+        marker_3e7a5929c37dbbceb7d2735a7f08917b.bindPopup(popup_d153f024599855383d05fb8bccef0179)
+        ;
+
+        
+    
+    
+            marker_3e7a5929c37dbbceb7d2735a7f08917b.bindTooltip(
+                `<div>
+                     #33 Forêt de Bouskoura
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_3e7a5929c37dbbceb7d2735a7f08917b.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_3e7a5929c37dbbceb7d2735a7f08917b.setIcon(div_icon_e315e849cebcb956261edaaf88ac1f2c);
+            
+    
+            var marker_387fa19b71dd024b50b0466be30a897a = L.marker(
+                [33.4691112, -7.6760886],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_606f22dffb334a5429434658f5652547 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e34\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_c79edc64ae7cbd11297a300ea8eac235 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_c0f9b2d8e0c525b147b59a6d827b8c6b = $(`<div id="html_c0f9b2d8e0c525b147b59a6d827b8c6b" style="width: 100.0%; height: 100.0%;"><b>#34 — Bassatine Bouskoura P2</b><br>Zone : Bouskoura<br>Lat : 33.4691112<br>Lon : -7.6760886</div>`)[0];
+                popup_c79edc64ae7cbd11297a300ea8eac235.setContent(html_c0f9b2d8e0c525b147b59a6d827b8c6b);
+            
+        
+
+        marker_387fa19b71dd024b50b0466be30a897a.bindPopup(popup_c79edc64ae7cbd11297a300ea8eac235)
+        ;
+
+        
+    
+    
+            marker_387fa19b71dd024b50b0466be30a897a.bindTooltip(
+                `<div>
+                     #34 Bassatine Bouskoura P2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_387fa19b71dd024b50b0466be30a897a.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_387fa19b71dd024b50b0466be30a897a.setIcon(div_icon_606f22dffb334a5429434658f5652547);
+            
+    
+            var marker_b5063eac496d1fbb6b9bdbb64b8524e4 = L.marker(
+                [33.4674192, -7.6649628],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_0d3e3b87a4c5a3b917719ce8be493c51 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e35\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_caf4031d73b81b8ce20bfe413cd67f16 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_175f1afa43c552aa434bac53ee8fef1d = $(`<div id="html_175f1afa43c552aa434bac53ee8fef1d" style="width: 100.0%; height: 100.0%;"><b>#35 — Résidences Bassatine Bouskoura</b><br>Zone : Bouskoura<br>Lat : 33.4674192<br>Lon : -7.6649628</div>`)[0];
+                popup_caf4031d73b81b8ce20bfe413cd67f16.setContent(html_175f1afa43c552aa434bac53ee8fef1d);
+            
+        
+
+        marker_b5063eac496d1fbb6b9bdbb64b8524e4.bindPopup(popup_caf4031d73b81b8ce20bfe413cd67f16)
+        ;
+
+        
+    
+    
+            marker_b5063eac496d1fbb6b9bdbb64b8524e4.bindTooltip(
+                `<div>
+                     #35 Résidences Bassatine Bouskoura
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_b5063eac496d1fbb6b9bdbb64b8524e4.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_b5063eac496d1fbb6b9bdbb64b8524e4.setIcon(div_icon_0d3e3b87a4c5a3b917719ce8be493c51);
+            
+    
+            var marker_97352c2f7dec97fae74d32534b210290 = L.marker(
+                [33.4610823, -7.6520422],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_fba70edc7e66075783bb190ef442a008 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e36\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_fc30da6479eb94d6de768e73e35b25ce = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_f64ff44c417015269339f36337826718 = $(`<div id="html_f64ff44c417015269339f36337826718" style="width: 100.0%; height: 100.0%;"><b>#36 — Gare de Bouskoura</b><br>Zone : Bouskoura<br>Lat : 33.4610823<br>Lon : -7.6520422</div>`)[0];
+                popup_fc30da6479eb94d6de768e73e35b25ce.setContent(html_f64ff44c417015269339f36337826718);
+            
+        
+
+        marker_97352c2f7dec97fae74d32534b210290.bindPopup(popup_fc30da6479eb94d6de768e73e35b25ce)
+        ;
+
+        
+    
+    
+            marker_97352c2f7dec97fae74d32534b210290.bindTooltip(
+                `<div>
+                     #36 Gare de Bouskoura
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_97352c2f7dec97fae74d32534b210290.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_97352c2f7dec97fae74d32534b210290.setIcon(div_icon_fba70edc7e66075783bb190ef442a008);
+            
+    
+            var marker_b6106cb6e8d974b50c511807e1410541 = L.marker(
+                [33.4573633, -7.6503804],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_26b9f777219f8ffea1d9f27bf61a4e3f = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e37\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_c53e485a873f210059b30f88fbe66b9e = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_05553e2d03f7c05d5deef5c7520c3fa9 = $(`<div id="html_05553e2d03f7c05d5deef5c7520c3fa9" style="width: 100.0%; height: 100.0%;"><b>#37 — Bouskoura (centre)</b><br>Zone : Bouskoura<br>Lat : 33.4573633<br>Lon : -7.6503804</div>`)[0];
+                popup_c53e485a873f210059b30f88fbe66b9e.setContent(html_05553e2d03f7c05d5deef5c7520c3fa9);
+            
+        
+
+        marker_b6106cb6e8d974b50c511807e1410541.bindPopup(popup_c53e485a873f210059b30f88fbe66b9e)
+        ;
+
+        
+    
+    
+            marker_b6106cb6e8d974b50c511807e1410541.bindTooltip(
+                `<div>
+                     #37 Bouskoura (centre)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_b6106cb6e8d974b50c511807e1410541.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_b6106cb6e8d974b50c511807e1410541.setIcon(div_icon_26b9f777219f8ffea1d9f27bf61a4e3f);
+            
+    
+            var marker_69932619e801da585de22643be779dc7 = L.marker(
+                [33.4465866, -7.6490945],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_872f7d77dff8d600d517c85532c3950d = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e38\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_a08e65a0d99575e97e0925c8772dbca6 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_85117cc4c7f459fe80d62b4442f1b361 = $(`<div id="html_85117cc4c7f459fe80d62b4442f1b361" style="width: 100.0%; height: 100.0%;"><b>#38 — Bâtiments Addoha</b><br>Zone : Bouskoura<br>Lat : 33.4465866<br>Lon : -7.6490945</div>`)[0];
+                popup_a08e65a0d99575e97e0925c8772dbca6.setContent(html_85117cc4c7f459fe80d62b4442f1b361);
+            
+        
+
+        marker_69932619e801da585de22643be779dc7.bindPopup(popup_a08e65a0d99575e97e0925c8772dbca6)
+        ;
+
+        
+    
+    
+            marker_69932619e801da585de22643be779dc7.bindTooltip(
+                `<div>
+                     #38 Bâtiments Addoha
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_69932619e801da585de22643be779dc7.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_69932619e801da585de22643be779dc7.setIcon(div_icon_872f7d77dff8d600d517c85532c3950d);
+            
+    
+            var marker_a81159acdabd744556e30b6bd30ed707 = L.marker(
+                [33.4323812, -7.6393785],
+                {
+  "zIndexOffset": 0,
+}
+            ).addTo(map_a21ff46723f8a01d09b108115d5ef64c);
+        
+    
+            var div_icon_891309df7a67cb14963d2a40661bdec3 = L.divIcon({
+  "html": "\u003cdiv style=\"width:20px;height:20px;border-radius:50%;background:#4f8cff;color:#fff;font:bold 10px sans-serif;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 0 3px #000\"\u003e39\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+        var popup_3f0ac51009a81a1d7753fb2aa84d0015 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_6a5790cae6c7b319fe6577be52db1c4a = $(`<div id="html_6a5790cae6c7b319fe6577be52db1c4a" style="width: 100.0%; height: 100.0%;"><b>#39 — Zone industrielle Oulad Saleh</b><br>Zone : Bouskoura<br>Lat : 33.4323812<br>Lon : -7.6393785</div>`)[0];
+                popup_3f0ac51009a81a1d7753fb2aa84d0015.setContent(html_6a5790cae6c7b319fe6577be52db1c4a);
+            
+        
+
+        marker_a81159acdabd744556e30b6bd30ed707.bindPopup(popup_3f0ac51009a81a1d7753fb2aa84d0015)
+        ;
+
+        
+    
+    
+            marker_a81159acdabd744556e30b6bd30ed707.bindTooltip(
+                `<div>
+                     #39 Zone industrielle Oulad Saleh
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_a81159acdabd744556e30b6bd30ed707.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_a81159acdabd744556e30b6bd30ed707.setIcon(div_icon_891309df7a67cb14963d2a40661bdec3);
+            
+</script>
+</html>
